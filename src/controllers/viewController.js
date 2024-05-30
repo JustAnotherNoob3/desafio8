@@ -46,8 +46,8 @@ class ViewController{
       async getCartView(req, res){
         let id = req.params.cid;
         try{
-        let cart = (await cartManager.getCartById(id)).toObject();
-        res.render("cart",{id: id, product: cart.products.map((x) => {return {quantity: x.quantity, title: x.product.title, id: x.product._id, description: x.product.description}})});
+        let cart = (await cartManager.getCartById(id));
+        res.render("cart",{id: id, product: cart.products.map((x) => {return {quantity: x.quantity, title: x.product.title, id: x.product.id, description: x.product.description}})});
         } catch(error){
           res.status(400).send({ status: "error", error: error.toString() });
         }

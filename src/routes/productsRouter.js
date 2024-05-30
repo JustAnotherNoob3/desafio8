@@ -7,6 +7,8 @@ const productsRouter = Router();
 
 productsRouter.get("/", productsController.getProducts);
 
+productsRouter.get("/mockingproducts", productsController.GetMockProducts);
+
 productsRouter.get("/:pid", productsController.GetProductById);
 
 productsRouter.post("/", isAdmin,productsController.createProduct);

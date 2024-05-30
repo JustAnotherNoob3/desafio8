@@ -3,7 +3,8 @@ import { daoProducts } from './index.js';
 import mongoose from "mongoose";
 import mongoosePaginate from 'mongoose-paginate-v2';
 import { __dirname } from '../utils.js';
-
+import { fakerES_MX } from '@faker-js/faker';
+let faker = fakerES_MX;
 class ProductManager {
     #path;
     constructor() {
@@ -19,10 +20,10 @@ class ProductManager {
         if (product.price !== undefined && product.price <= 0) {
             throw Error(`There were values undefined or impossible. Not updating to product ${Object.values(product)}`);
         }
-        try { (await daoProducts.update(productId, product)).errors } catch { throw "No product with ID " + productId; }
+        try { (await daoProducts.update(productId, product)) } catch { throw "No product with ID " + productId; }
     }
     async deleteProduct(productId) {
-        try { (await daoProducts.delete(productId)).errors } catch { throw "No product with ID " + productId; }
+        try { (await daoProducts.delete(productId)) } catch { throw "No product with ID " + productId; }
     }
     async getProducts(limit, page, query, sort) {
         let check = undefined;
@@ -77,6 +78,16 @@ class ProductManager {
         this.addProduct({ title: "meme", description: "dddd", code: "wwwwwwww", price: 2, status: true, stock: 1, category: "w", thumbnails: [] })
     ]);
     }
+    async returnMockProducts() {
+        let ret = [];
+        
+        for(let i = 0; i < 100; i++){
+            ret.push({ id: faker.database.mongodbObjectId(), title: faker.commerce.productName(), description: faker.commerce.productDescription(), code: faker.commerce.isbn(), price: faker.commerce.price({min:1, max: 9999}), status: true, stock: faker.commerce.price({min:0, max: 100}), category: faker.commerce.productAdjective(), thumbnails: [faker.image.url()] })
+        }
+        return ret;        
+    
+    }
+
     #equalArrays(a, b) {
         if (a.length !== b.length) return false;
         for (let i = 0; i < a.length; i++) {

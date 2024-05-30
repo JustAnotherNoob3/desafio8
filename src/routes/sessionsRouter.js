@@ -18,7 +18,7 @@ sessionsRouter.get('/failregister', async (req, res) => {
     res.status(400).send({ status: "error", error: "register failed" });
 })
 sessionsRouter.post("/login", passport.authenticate('login', { failureRedirect: '/faillogin' }), async (req, res) => {
-    req.session.user = new UserDTO(req.user);
+    req.session.user = req.user;
     res.send({ status: "success", payload: req.session.user, message: "Inicio Exitoso" });
 });
 sessionsRouter.get('/github', passport.authenticate('github', { scope: ['user:email'] }), async (req, res) => {
@@ -28,7 +28,7 @@ sessionsRouter.get('/github', passport.authenticate('github', { scope: ['user:em
 sessionsRouter.get('/githubcallback', passport.authenticate('github', { failureRedirect: '/login' }), async (req, res) => {
     console.log("GitHub callback triggered");
     console.log(req.user);
-    req.session.user = new UserDTO(req.user);
+    req.session.user = req.user;
     /*{
         name: req.user.first_name,
         email: req.user.email,

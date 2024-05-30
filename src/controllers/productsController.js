@@ -25,6 +25,15 @@ class ProductsController{
             res.status(400).send({ status: "error", error: error.toString() });
         }
     }
+    async GetMockProducts(req, res){
+        let id = req.params.pid;
+        try {
+            let product = await productManager.returnMockProducts();
+            res.status(200).send({ status: "success", payload: await product });
+        } catch (error) {
+            res.status(400).send({ status: "error", error: error.toString() });
+        }
+    }
     async createProduct(req, res){
         let product = req.body;
         try {

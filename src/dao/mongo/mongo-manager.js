@@ -12,6 +12,9 @@ export default class DaoMongo {
     getByOther(filter) {
         return this.model.find(filter);
     }
+    getOneByOther(filter) {
+        return this.model.findOne(filter);
+    }
     getPaginated(filter, extra){
         return this.model.paginate(filter, extra);
     }

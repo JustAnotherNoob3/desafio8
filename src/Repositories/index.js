@@ -1,4 +1,4 @@
-import Dao from "../dao/mongo/mongo-manager.js";
+import Dao from "../dao/factory.js";
 import { cartsModel } from "../dao/mongo/models/carts.js";
 import { msgsModel } from "../dao/mongo/models/messages.js";
 import { productsModel } from "../dao/mongo/models/products.js";

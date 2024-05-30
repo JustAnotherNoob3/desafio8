@@ -1,7 +1,7 @@
-import {daoType} from "../config/config.js"
-import DaoMemory from "./memory/memory-manager";
-import DaoMongo from "./mongo/mongo-manager";
+import config from "../config/config.js"
+import DaoMemory from "./memory/memory-manager.js";
+import DaoMongo from "./mongo/mongo-manager.js";
 
-const Dao = daoType == "mongo"? DaoMongo : DaoMemory;
+const Dao = config.daoType === "memory" ? DaoMemory :DaoMongo;
 
 export default Dao;
